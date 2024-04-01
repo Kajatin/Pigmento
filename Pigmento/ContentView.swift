@@ -20,6 +20,9 @@ struct ContentView: View {
 
     // Triggers the confetti animation every time this value changes.
     @State private var counter: Int = 0
+    
+    @State private var showInfo = false
+    @State private var solutionBlurRadius: Double = 8.0
 
     var body: some View {
         ZStack {
@@ -47,6 +50,7 @@ struct ContentView: View {
                     Spacer()
 
                     Button {
+                        showInfo.toggle()
                     } label: {
                         Image(systemName: "info")
                             .bold()
@@ -110,6 +114,92 @@ struct ContentView: View {
                 .scenePadding()
                 .background(.regularMaterial)
             }
+            .sheet(isPresented: $showInfo) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 14) {
+                        VStack(alignment: .leading) {
+                            HStack(spacing: 12) {
+                                if let image = UIImage(named: "AppIcon") {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                }
+                                Text("Pigmento")
+                                    .font(.custom("Kanit-Regular", size: 24, relativeTo: .title))
+                                Spacer()
+                            }
+                            
+                            Text("An open-source fun puzzle game for people who love colors.")
+                                .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                                .opacity(0.8)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Stuck?")
+                                .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
+                                .opacity(0.6)
+                            Text("Having trouble figuring the solution out?")
+                                .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                            
+                            HStack {
+                                Spacer()
+                                VStack(alignment: .center, spacing: 12) {
+                                    Text("#\(color.hex)")
+                                        .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 4)
+                                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 8))
+                                        .blur(radius: solutionBlurRadius)
+                                    
+                                    Button {
+                                        withAnimation {
+                                            solutionBlurRadius = 0.0
+                                        }
+                                    } label: {
+                                        Text("Reveal Solution")
+                                            .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
+                                            .getContrastText(backgroundColor: color.color)
+                                    }
+                                    .tint(color.color)
+                                    .buttonStyle(.borderedProminent)
+                                }
+                                Spacer()
+                            }
+                        }
+                        
+                        Divider()
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Source Code")
+                                .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
+                                .opacity(0.6)
+                            HStack {
+                                Image("Github")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .scaledToFit()
+                                Text("https://github.com/Kajatin/Pigmento")
+                                    .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                            }
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Support")
+                                .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
+                                .opacity(0.6)
+                            Text("If you want to support me, just leave a ⭐️ on the GitHub repo.")
+                                .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                        }
+                        
+                        Spacer()
+                    }
+                }
+                .scenePadding()
+                .presentationBackground(.thinMaterial)
+                .presentationDetents([.medium])
+                .scrollIndicators(.hidden)
+            }
         }
     }
 
@@ -117,6 +207,7 @@ struct ContentView: View {
         color = HexColor()
         guesses = []
         guessed = false
+        solutionBlurRadius = 8.0
     }
 }
 
