@@ -36,10 +36,11 @@ struct ContentView: View {
                     } label: {
                         Image(systemName: "arrow.counterclockwise")
                             .bold()
+                            .tint(.primary)
+                            .frame(width: 40, height: 40)
+                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
                     }
-                    .tint(.primary)
-                    .frame(width: 40, height: 40)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+                    
 
                     Spacer()
 
@@ -54,10 +55,11 @@ struct ContentView: View {
                     } label: {
                         Image(systemName: "info")
                             .bold()
+                            .tint(.primary)
+                            .frame(width: 40, height: 40)
+                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
                     }
-                    .tint(.primary)
-                    .frame(width: 40, height: 40)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+                    
                 }
                 .scenePadding()
 
