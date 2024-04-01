@@ -20,7 +20,7 @@ struct ContentView: View {
 
     // Triggers the confetti animation every time this value changes.
     @State private var counter: Int = 0
-    
+
     @State private var showInfo = false
     @State private var solutionBlurRadius: Double = 8.0
 
@@ -40,7 +40,7 @@ struct ContentView: View {
                             .frame(width: 40, height: 40)
                             .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
                     }
-                    
+
 
                     Spacer()
 
@@ -59,7 +59,7 @@ struct ContentView: View {
                             .frame(width: 40, height: 40)
                             .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
                     }
-                    
+
                 }
                 .scenePadding()
 
@@ -134,19 +134,19 @@ struct ContentView: View {
                                     .font(.custom("Kanit-Regular", size: 24, relativeTo: .title))
                                 Spacer()
                             }
-                            
+
                             Text("An open-source fun puzzle game for people who love colors.")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
                                 .opacity(0.8)
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Stuck?")
                                 .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
                                 .opacity(0.6)
                             Text("Having trouble figuring the solution out?")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
-                            
+
                             HStack {
                                 Spacer()
                                 VStack(alignment: .center, spacing: 12) {
@@ -156,7 +156,7 @@ struct ContentView: View {
                                         .padding(.vertical, 4)
                                         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 8))
                                         .blur(radius: solutionBlurRadius)
-                                    
+
                                     Button {
                                         withAnimation {
                                             solutionBlurRadius = 0.0
@@ -172,9 +172,23 @@ struct ContentView: View {
                                 Spacer()
                             }
                         }
-                        
+
                         Divider()
-                        
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Information")
+                                .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
+                                .opacity(0.6)
+                            Text("RGB stands for Red, Green, and Blue. It is a color model that describes how colors can be represented as a combination of these three primary colors.")
+                                .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                            Text("RGB is an additive color model, meaning that the more light you add, the closer you get to white. The less light you add, the closer you get to black.")
+                                .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                            Text("In this game, each color is represented by a combination of red, green, and blue values ranging from 0 to F (hexadecimal). Hexadecimal is a base-16 number system that uses the digits 0-9 and the letters A-F.")
+                                .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                        }
+
+                        Divider()
+
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Source Code")
                                 .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
@@ -188,7 +202,7 @@ struct ContentView: View {
                                     .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
                             }
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Support")
                                 .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
@@ -196,7 +210,7 @@ struct ContentView: View {
                             Text("If you want to support me, just leave a ⭐️ on the GitHub repo.")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
                         }
-                        
+
                         Spacer()
                     }
                 }
@@ -213,6 +227,9 @@ struct ContentView: View {
         guesses = []
         guessed = false
         solutionBlurRadius = 8.0
+        red = 7
+        green = 7
+        blue = 7
     }
 }
 
