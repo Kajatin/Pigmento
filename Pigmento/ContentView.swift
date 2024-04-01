@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ConfettiSwiftUI
 
 struct ContentView: View {
     @State private var color = HexColor()
@@ -16,6 +17,9 @@ struct ContentView: View {
 
     @State private var guesses: [Guess] = []
     @State private var guessed = false
+
+    // Triggers the confetti animation every time this value changes.
+    @State private var counter: Int = 0
 
     var body: some View {
         ZStack {
@@ -35,11 +39,11 @@ struct ContentView: View {
                     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
 
                     Spacer()
-                    
+
                     Text("Guess the Color")
                         .font(.custom("Kanit-Regular", size: 24, relativeTo: .title))
                         .getContrastText(backgroundColor: color.color)
-                    
+
                     Spacer()
 
                     Button {
@@ -81,39 +85,34 @@ struct ContentView: View {
                         StepSlider(label: "green", color: color.color, value: $green)
                         StepSlider(label: "blue", color: color.color, value: $blue)
                     }
-                    
-                    if guessed {
-                        Button {
+
+                    Button {
+                        if guessed {
                             reset()
-                        } label: {
-                            let hex = HexColor(red: red, green: green, blue: blue)
-                            Text("New Game")
-                                .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
-                                .getContrastText(backgroundColor: color.color)
-                        }
-                        .tint(color.color)
-                        .buttonStyle(.borderedProminent)
-                    } else {
-                        Button {
+                        } else {
                             let newGuess = Guess(color: HexColor(red: red, green: green, blue: blue), target: color)
                             guesses.append(newGuess)
                             guessed = newGuess.distance == 1.0
-                        } label: {
-                            let hex = HexColor(red: red, green: green, blue: blue)
-                            Text("Guess #\(hex.hex)")
-                                .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
-                                .getContrastText(backgroundColor: color.color)
+                            if guessed {
+                                counter += 1
+                            }
                         }
-                        .tint(color.color)
-                        .buttonStyle(.borderedProminent)
+                    } label: {
+                        let hex = HexColor(red: red, green: green, blue: blue)
+                        Text(guessed ? "New Game" : "Guess #\(hex.hex)")
+                            .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
+                            .getContrastText(backgroundColor: color.color)
                     }
+                    .tint(color.color)
+                    .buttonStyle(.borderedProminent)
+                    .confettiCannon(counter: $counter, num: 30, rainHeight: 300, openingAngle: Angle(degrees: 35), closingAngle: Angle(degrees: 145), radius: 200)
                 }
                 .scenePadding()
                 .background(.regularMaterial)
             }
         }
     }
-    
+
     func reset() {
         color = HexColor()
         guesses = []
