@@ -11,6 +11,11 @@
 		4C23D0CE2BBA031E00E32174 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23D0CD2BBA031E00E32174 /* ContentView.swift */; };
 		4C23D0D02BBA032000E32174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C23D0CF2BBA032000E32174 /* Assets.xcassets */; };
 		4C23D0D32BBA032000E32174 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C23D0D22BBA032000E32174 /* Preview Assets.xcassets */; };
+		4C23D0DA2BBA043800E32174 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23D0D92BBA043800E32174 /* ViewModel.swift */; };
+		4C85C8B62BBAA1B200CFF883 /* Kanit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C85C8B52BBAA1B200CFF883 /* Kanit-Regular.ttf */; };
+		4C85C8BB2BBAD82300CFF883 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85C8BA2BBAD82300CFF883 /* HexColor.swift */; };
+		4C85C8BD2BBAD8E200CFF883 /* Guess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85C8BC2BBAD8E200CFF883 /* Guess.swift */; };
+		4C85C8BF2BBAE08300CFF883 /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85C8BE2BBAE08300CFF883 /* StepSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +24,12 @@
 		4C23D0CD2BBA031E00E32174 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4C23D0CF2BBA032000E32174 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C23D0D22BBA032000E32174 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4C23D0D92BBA043800E32174 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		4C85C8B52BBAA1B200CFF883 /* Kanit-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-Regular.ttf"; sourceTree = "<group>"; };
+		4C85C8B72BBAA1D200CFF883 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4C85C8BA2BBAD82300CFF883 /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
+		4C85C8BC2BBAD8E200CFF883 /* Guess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guess.swift; sourceTree = "<group>"; };
+		4C85C8BE2BBAE08300CFF883 /* StepSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +62,14 @@
 		4C23D0CA2BBA031E00E32174 /* Pigmento */ = {
 			isa = PBXGroup;
 			children = (
+				4C85C8B72BBAA1D200CFF883 /* Info.plist */,
+				4C85C8B52BBAA1B200CFF883 /* Kanit-Regular.ttf */,
 				4C23D0CB2BBA031E00E32174 /* PigmentoApp.swift */,
 				4C23D0CD2BBA031E00E32174 /* ContentView.swift */,
+				4C85C8BE2BBAE08300CFF883 /* StepSlider.swift */,
+				4C85C8BC2BBAD8E200CFF883 /* Guess.swift */,
+				4C85C8BA2BBAD82300CFF883 /* HexColor.swift */,
+				4C23D0D92BBA043800E32174 /* ViewModel.swift */,
 				4C23D0CF2BBA032000E32174 /* Assets.xcassets */,
 				4C23D0D12BBA032000E32174 /* Preview Content */,
 			);
@@ -127,6 +144,7 @@
 			files = (
 				4C23D0D32BBA032000E32174 /* Preview Assets.xcassets in Resources */,
 				4C23D0D02BBA032000E32174 /* Assets.xcassets in Resources */,
+				4C85C8B62BBAA1B200CFF883 /* Kanit-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +155,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C85C8BF2BBAE08300CFF883 /* StepSlider.swift in Sources */,
 				4C23D0CE2BBA031E00E32174 /* ContentView.swift in Sources */,
+				4C85C8BB2BBAD82300CFF883 /* HexColor.swift in Sources */,
+				4C23D0DA2BBA043800E32174 /* ViewModel.swift in Sources */,
 				4C23D0CC2BBA031E00E32174 /* PigmentoApp.swift in Sources */,
+				4C85C8BD2BBAD8E200CFF883 /* Guess.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,11 +297,13 @@
 				DEVELOPMENT_TEAM = T2HL3ZXJQU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pigmento/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -287,6 +311,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.kajatin.roland.Pigmento;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -304,11 +332,13 @@
 				DEVELOPMENT_TEAM = T2HL3ZXJQU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pigmento/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,6 +346,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.kajatin.roland.Pigmento;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
