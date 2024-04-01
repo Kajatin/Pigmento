@@ -75,6 +75,7 @@ struct ContentView: View {
                             }
                             .padding(.horizontal, 16)
                             .padding(.vertical, 8)
+                            .frame(minWidth: 300)
                             .background(guess.color.color)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                         }
@@ -89,6 +90,7 @@ struct ContentView: View {
                         StepSlider(label: "green", color: color.color, value: $green)
                         StepSlider(label: "blue", color: color.color, value: $blue)
                     }
+                    .frame(maxWidth: 500)
 
                     Button {
                         if guessed {
@@ -111,6 +113,7 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent)
                     .confettiCannon(counter: $counter, num: 30, rainHeight: 300, openingAngle: Angle(degrees: 35), closingAngle: Angle(degrees: 145), radius: 200)
                 }
+                .frame(maxWidth: .infinity)
                 .scenePadding()
                 .background(.regularMaterial)
             }
