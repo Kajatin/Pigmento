@@ -100,7 +100,7 @@ struct CustomSlider: View {
 
         events.append(
             CHHapticEvent(eventType: .hapticTransient, parameters: [
-                CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(0.2)),
+                CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(0.3)),
                 CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(0.8))
             ], relativeTime: 0)
         )
