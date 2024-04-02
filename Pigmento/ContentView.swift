@@ -7,6 +7,7 @@
 
 import SwiftUI
 import StoreKit
+import CoreHaptics
 import ConfettiSwiftUI
 
 struct ContentView: View {
@@ -24,6 +25,8 @@ struct ContentView: View {
 
     @State private var showInfo = false
     @State private var solutionBlurRadius: Double = 8.0
+    
+    @State private var engine: CHHapticEngine?
 
     @Environment(\.requestReview) var requestReview
 
@@ -105,6 +108,7 @@ struct ContentView: View {
                             guesses.append(newGuess)
                             guessed = newGuess.distance == 1.0
                             if guessed {
+                                playHaptics()
                                 counter += 1
                             }
                         }
@@ -236,6 +240,7 @@ struct ContentView: View {
                 .scrollIndicators(.hidden)
             }
         }
+        .onAppear(perform: prepareHaptics)
     }
 
     func reset() {
@@ -246,6 +251,41 @@ struct ContentView: View {
         red = 7
         green = 7
         blue = 7
+    }
+    
+    func prepareHaptics() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        
+        if engine != nil {
+            return
+        }
+        
+        do {
+            engine = try CHHapticEngine()
+            try engine?.start()
+        } catch {
+            print("There was an error creating the engine: \(error.localizedDescription)")
+        }
+    }
+    
+    func playHaptics() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        var events = [CHHapticEvent]()
+        
+        events.append(
+            CHHapticEvent(eventType: .hapticTransient, parameters: [
+                CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(1)),
+                CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(0.8))
+            ], relativeTime: 0)
+        )
+        
+        do {
+            let pattern = try CHHapticPattern(events: events, parameters: [])
+            let player = try engine?.makePlayer(with: pattern)
+            try player?.start(atTime: 0)
+        } catch {
+            print("Failed to play pattern: \(error.localizedDescription).")
+        }
     }
 }
 

@@ -25,17 +25,18 @@ struct HexColor {
     }
 
     func similarity(to target: HexColor) -> Double {
-        let red = Double(options.firstIndex(of: String(hex[hex.index(hex.startIndex, offsetBy: 0)]))!) / Double(options.count)
-        let green = Double(options.firstIndex(of: String(hex[hex.index(hex.startIndex, offsetBy: 1)]))!) / Double(options.count)
-        let blue = Double(options.firstIndex(of: String(hex[hex.index(hex.startIndex, offsetBy: 2)]))!) / Double(options.count)
+        let red = (Double(options.firstIndex(of: String(hex[hex.index(hex.startIndex, offsetBy: 0)]))!) + 1) / Double(options.count)
+        let green = (Double(options.firstIndex(of: String(hex[hex.index(hex.startIndex, offsetBy: 1)]))!) + 1) / Double(options.count)
+        let blue = (Double(options.firstIndex(of: String(hex[hex.index(hex.startIndex, offsetBy: 2)]))!) + 1) / Double(options.count)
 
-        let targetRed = Double(options.firstIndex(of: String(target.hex[target.hex.index(target.hex.startIndex, offsetBy: 0)]))!) / Double(options.count)
-        let targetGreen = Double(options.firstIndex(of: String(target.hex[target.hex.index(target.hex.startIndex, offsetBy: 1)]))!) / Double(options.count)
-        let targetBlue = Double(options.firstIndex(of: String(target.hex[target.hex.index(target.hex.startIndex, offsetBy: 2)]))!) / Double(options.count)
+        let targetRed = (Double(options.firstIndex(of: String(target.hex[target.hex.index(target.hex.startIndex, offsetBy: 0)]))!) + 1) / Double(options.count)
+        let targetGreen = (Double(options.firstIndex(of: String(target.hex[target.hex.index(target.hex.startIndex, offsetBy: 1)]))!) + 1) / Double(options.count)
+        let targetBlue = (Double(options.firstIndex(of: String(target.hex[target.hex.index(target.hex.startIndex, offsetBy: 2)]))!) + 1) / Double(options.count)
 
         let distance = sqrt(pow(targetRed - red, 2) + pow(targetGreen - green, 2) + pow(targetBlue - blue, 2))
+        let normalizedDistance = distance / sqrt(3.0)
 
-        return 1.0 - distance
+        return 1 - normalizedDistance
     }
 
     static func hexToColor(hex: String) -> Color {
