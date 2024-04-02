@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 import ConfettiSwiftUI
 
 struct ContentView: View {
@@ -23,6 +24,8 @@ struct ContentView: View {
 
     @State private var showInfo = false
     @State private var solutionBlurRadius: Double = 8.0
+
+    @Environment(\.requestReview) var requestReview
 
     var body: some View {
         ZStack {
@@ -154,7 +157,6 @@ struct ContentView: View {
                                         .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
                                         .padding(.horizontal, 12)
                                         .padding(.vertical, 4)
-                                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 8))
                                         .blur(radius: solutionBlurRadius)
 
                                     Button {
@@ -163,11 +165,12 @@ struct ContentView: View {
                                         }
                                     } label: {
                                         Text("Reveal Solution")
-                                            .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
-                                            .getContrastText(backgroundColor: color.color)
+                                            .bold()
+                                            .getContrastText(backgroundColor: Color("AccentColor"))
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 8)
+                                            .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 8))
                                     }
-                                    .tint(color.color)
-                                    .buttonStyle(.borderedProminent)
                                 }
                                 Spacer()
                             }
@@ -207,8 +210,21 @@ struct ContentView: View {
                             Text("Support")
                                 .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
                                 .opacity(0.6)
-                            Text("If you want to support me, just leave a ⭐️ on the GitHub repo.")
+
+                            Text("If you want to support me, just leave a ⭐️ on the GitHub repo or rate the app on the AppStore.")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                                .padding(.bottom, 8)
+
+                            Button {
+                                requestReview()
+                            } label: {
+                                Text("Rate on the App Store")
+                                    .bold()
+                                    .getContrastText(backgroundColor: Color("AccentColor"))
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 8)
+                                    .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 8))
+                            }
                         }
 
                         Spacer()
@@ -239,7 +255,7 @@ extension Text {
         (r, g, b, a) = (0, 0, 0, 0)
         UIColor(backgroundColor).getRed(&r, green: &g, blue: &b, alpha: &a)
         let luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
-        return  luminance < 0.6 ? self.foregroundColor(.white) : self.foregroundColor(.black)
+        return luminance < 0.6 ? self.foregroundColor(.white) : self.foregroundColor(.black)
     }
 }
 
