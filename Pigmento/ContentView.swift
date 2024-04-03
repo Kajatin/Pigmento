@@ -151,7 +151,7 @@ struct ContentView: View {
                             Text("Stuck?")
                                 .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
                                 .opacity(0.6)
-                            Text("Having trouble figuring the solution out?")
+                            Text("Having trouble figuring out the solution?")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
 
                             HStack {
@@ -186,12 +186,33 @@ struct ContentView: View {
                             Text("Information")
                                 .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
                                 .opacity(0.6)
-                            Text("RGB stands for Red, Green, and Blue. It is a color model that describes how colors can be represented as a combination of these three primary colors.")
+                            Text("RGB stands for Red, Green, and Blue. It is a color model that describes how colors can be represented as a combination of these three primary colors. It is an additive color model: the more you add of each color, the closer you get to white.")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
-                            Text("RGB is an additive color model, meaning that the more light you add, the closer you get to white. The less light you add, the closer you get to black.")
+                            Text("In this game, your task is to guess the color by adjusting the sliders for the three color components. The selected value for each color is represented in a base-16 number system such that the values range from 0 to F (hexadecimal).")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
-                            Text("In this game, each color is represented by a combination of red, green, and blue values ranging from 0 to F (hexadecimal). Hexadecimal is a base-16 number system that uses the digits 0-9 and the letters A-F.")
+                        }
+                        
+                        Divider()
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Support")
+                                .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
+                                .opacity(0.6)
+                            
+                            Text("If you want to support me, just leave a ⭐️ on the GitHub repo or rate the app on the App Store.")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                                .padding(.bottom, 8)
+                            
+                            Button {
+                                requestReview()
+                            } label: {
+                                Text("Rate on App Store")
+                                    .bold()
+                                    .getContrastText(backgroundColor: Color("AccentColor"))
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 8)
+                                    .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 8))
+                            }
                         }
 
                         Divider()
@@ -207,27 +228,6 @@ struct ContentView: View {
                                     .scaledToFit()
                                 Text("https://github.com/Kajatin/Pigmento")
                                     .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
-                            }
-                        }
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Support")
-                                .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
-                                .opacity(0.6)
-
-                            Text("If you want to support me, just leave a ⭐️ on the GitHub repo or rate the app on the AppStore.")
-                                .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
-                                .padding(.bottom, 8)
-
-                            Button {
-                                requestReview()
-                            } label: {
-                                Text("Rate on the App Store")
-                                    .bold()
-                                    .getContrastText(backgroundColor: Color("AccentColor"))
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 8)
-                                    .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 8))
                             }
                         }
 
