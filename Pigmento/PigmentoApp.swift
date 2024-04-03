@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct PigmentoApp: App {
+    private let hapticsManager = HapticsManager.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(hapticsManager)
         }
     }
 }

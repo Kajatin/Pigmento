@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CoreHaptics
 
 struct StepSlider: View {
     var label: String
@@ -29,7 +28,7 @@ struct CustomSlider: View {
     var step: Double = 1
     var color: Color = .gray
 
-    @State private var engine: CHHapticEngine?
+    @EnvironmentObject var hapticsManager: HapticsManager
 
     var body: some View {
         GeometryReader { geometry in
@@ -68,7 +67,7 @@ struct CustomSlider: View {
                                 let newValue = Double(value.location.x / geometry.size.width) * in_.upperBound
                                 let roundedValue = round(newValue / step) * step
                                 if self.value != roundedValue {
-                                    playHaptics()
+                                    hapticsManager.playHaptics(intensity: 0.4, sharpness: 0.8)
                                 }
                                 self.value = min(max(roundedValue, in_.lowerBound), in_.upperBound)
                             })
@@ -76,46 +75,12 @@ struct CustomSlider: View {
             }
         }
         .frame(height: 26)
-        .onAppear(perform: prepareHaptics)
-    }
-
-    func prepareHaptics() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-
-        if engine != nil {
-            return
-        }
-
-        do {
-            engine = try CHHapticEngine()
-            try engine?.start()
-        } catch {
-            print("There was an error creating the engine: \(error.localizedDescription)")
-        }
-    }
-
-    func playHaptics() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-        var events = [CHHapticEvent]()
-
-        events.append(
-            CHHapticEvent(eventType: .hapticTransient, parameters: [
-                CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(0.3)),
-                CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(0.8))
-            ], relativeTime: 0)
-        )
-
-        do {
-            let pattern = try CHHapticPattern(events: events, parameters: [])
-            let player = try engine?.makePlayer(with: pattern)
-            try player?.start(atTime: 0)
-        } catch {
-            print("Failed to play pattern: \(error.localizedDescription).")
-        }
     }
 }
 
 #Preview {
-    StepSlider(label: "red", color: .red, value: .constant(7))
+    let hapticsManager = HapticsManager.shared
+    return StepSlider(label: "red", color: .red, value: .constant(7))
         .scenePadding()
+        .environmentObject(hapticsManager)
 }
