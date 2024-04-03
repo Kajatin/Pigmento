@@ -9,6 +9,16 @@ import SwiftUI
 import StoreKit
 import ConfettiSwiftUI
 
+extension Date: RawRepresentable {
+    public var rawValue: String {
+        self.timeIntervalSinceReferenceDate.description
+    }
+
+    public init?(rawValue: String) {
+        self = Date(timeIntervalSinceReferenceDate: Double(rawValue) ?? 0.0)
+    }
+}
+
 struct ContentView: View {
     @State private var color = HexColor()
 
@@ -21,6 +31,7 @@ struct ContentView: View {
 
     // Triggers the confetti animation every time this value changes.
     @State private var counter: Int = 0
+    @AppStorage("lastRequestedReview") var lastRequestedReview: Date?
 
     @State private var showInfo = false
     @State private var solutionBlurRadius: Double = 8.0
@@ -108,6 +119,11 @@ struct ContentView: View {
                             if guessed {
                                 hapticsManager.playHaptics()
                                 counter += 1
+
+                                if counter >= 5 && (lastRequestedReview == nil || Date().timeIntervalSince(lastRequestedReview!) > 60 * 60 * 24 * 130) {
+                                    requestReview()
+                                    lastRequestedReview = Date()
+                                }
                             }
                         }
                     } label: {
@@ -189,18 +205,18 @@ struct ContentView: View {
                             Text("In this game, your task is to guess the color by adjusting the sliders for the three color components. The selected value for each color is represented in a base-16 number system such that the values range from 0 to F (hexadecimal).")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
                         }
-                        
+
                         Divider()
-                        
+
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Support")
                                 .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
                                 .opacity(0.6)
-                            
+
                             Text("If you want to support me, just leave a ⭐️ on the GitHub repo or rate the app on the App Store.")
                                 .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
                                 .padding(.bottom, 8)
-                            
+
                             Button {
                                 requestReview()
                             } label: {
