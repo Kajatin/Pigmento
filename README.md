@@ -7,8 +7,18 @@ three color components (Red, Green, Blue).
 
 ## Interface
 
+Currently supported interfaces:
+
+* iPhone
+* iPad
+* Mac (Designed for iPad)
+
 <p align="center">
   <img width="240" src="https://github.com/Kajatin/Pigmento/assets/33018844/903b98fe-a273-4722-9e4a-df5d4ef77805">
   <img width="240" src="https://github.com/Kajatin/Pigmento/assets/33018844/9ab5a1dc-1e7f-40cc-a994-b53703fbc833">
   <img width="240" src="https://github.com/Kajatin/Pigmento/assets/33018844/90916f7e-4988-4656-8fa7-83d01c758990">
+</p>
+
+<p align="center">
+  <img width="480" src="https://github.com/Kajatin/Pigmento/assets/33018844/0c59c51c-d2e5-48eb-bc22-51068a294d52">
 </p>
