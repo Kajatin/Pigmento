@@ -244,6 +244,19 @@ struct ContentView: View {
                                     .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
                             }
                         }
+                        
+                        Divider()
+                        
+                        if let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String, let build_ = Bundle.main.infoDictionary!["CFBundleVersion"] as? String {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Version")
+                                .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
+                                .opacity(0.6)
+                
+                                Text("\(version) (\(build_))")
+                                    .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                            }
+                        }
 
                         Spacer()
                     }
