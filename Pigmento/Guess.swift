@@ -6,14 +6,21 @@
 //
 
 import Foundation
+import CoreTransferable
 
-struct Guess: Identifiable {
-    let id = UUID()
+struct Guess: Identifiable, Codable {
+    var id = UUID()
     let color: HexColor
     let distance: Double
     
     init(color: HexColor, target: HexColor) {
         self.color = color
         self.distance = color.similarity(to: target)
+    }
+}
+
+extension Guess: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .json)
     }
 }

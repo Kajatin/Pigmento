@@ -19,6 +19,25 @@ extension Date: RawRepresentable {
     }
 }
 
+struct SharePigmento: Codable {
+    let color: HexColor
+    let guesses: [Guess]
+}
+
+extension SharePigmento: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .pigmento)
+    }
+}
+
+import UniformTypeIdentifiers
+
+extension UTType {
+    static var pigmento: UTType {
+        UTType(exportedAs: "com.gmail.kajatin.roland.Pigmento.guess")
+    }
+}
+
 struct ContentView: View {
     @State private var color = HexColor()
 
