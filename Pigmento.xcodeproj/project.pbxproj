@@ -18,6 +18,7 @@
 		4C85C8BD2BBAD8E200CFF883 /* Guess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85C8BC2BBAD8E200CFF883 /* Guess.swift */; };
 		4C85C8BF2BBAE08300CFF883 /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85C8BE2BBAE08300CFF883 /* StepSlider.swift */; };
 		4C85C8C22BBAEF4C00CFF883 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C85C8C12BBAEF4C00CFF883 /* ConfettiSwiftUI */; };
+		4CE049BF2BC1CF91004FBCC1 /* Pigmento.ico in Resources */ = {isa = PBXBuildFile; fileRef = 4CE049BE2BC1CF91004FBCC1 /* Pigmento.ico */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		4C85C8BA2BBAD82300CFF883 /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
 		4C85C8BC2BBAD8E200CFF883 /* Guess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guess.swift; sourceTree = "<group>"; };
 		4C85C8BE2BBAE08300CFF883 /* StepSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSlider.swift; sourceTree = "<group>"; };
+		4CE049BE2BC1CF91004FBCC1 /* Pigmento.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; name = Pigmento.ico; path = ../../../Downloads/Pigmento.ico; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				4C85C8BA2BBAD82300CFF883 /* HexColor.swift */,
 				4C23D0D92BBA043800E32174 /* ViewModel.swift */,
 				4C23D0CF2BBA032000E32174 /* Assets.xcassets */,
+				4CE049BE2BC1CF91004FBCC1 /* Pigmento.ico */,
 				4C23D0D12BBA032000E32174 /* Preview Content */,
 			);
 			path = Pigmento;
@@ -153,6 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CE049BF2BC1CF91004FBCC1 /* Pigmento.ico in Resources */,
 				4C23D0D32BBA032000E32174 /* Preview Assets.xcassets in Resources */,
 				4C23D0D02BBA032000E32174 /* Assets.xcassets in Resources */,
 				4C85C8B62BBAA1B200CFF883 /* Kanit-Regular.ttf in Resources */,

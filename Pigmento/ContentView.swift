@@ -36,7 +36,12 @@ struct ContentView: View {
     @State private var showInfo = false
     @State private var solutionBlurRadius: Double = 8.0
 
+    @State private var incomingColor: HexColor?
+    @State private var showColorOverwriteAlert = false
+
+    @Environment(\.displayScale) var displayScale
     @Environment(\.requestReview) var requestReview
+
     @EnvironmentObject var hapticsManager: HapticsManager
 
     var body: some View {
@@ -61,20 +66,36 @@ struct ContentView: View {
 
                     Text("Guess the Color")
                         .font(.custom("Kanit-Regular", size: 24, relativeTo: .title))
-                        .getContrastText(backgroundColor: color.color)
+                        .foregroundStyle(getContrastColor(backgroundColor: color.color))
 
                     Spacer()
 
-                    Button {
-                        showInfo.toggle()
-                    } label: {
-                        Image(systemName: "info")
-                            .bold()
-                            .tint(.primary)
-                            .frame(width: 40, height: 40)
-                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+                    if !guesses.isEmpty && guessed {
+                        let renderer = createRenderer(color: color, challenge: true)
+                        if let image = renderer.uiImage {
+                            let renderedImage = Image(uiImage: image)
+                            ShareLink(
+                                item: renderedImage,
+                                message: Text("I've just guessed this color in \(guesses.count) tries. Try it yourself: pigmento://pigmento.com/guess/\(color.hex.toBase64())"),
+                                preview: SharePreview(Text("Challenge with #\(color.hex)"), image: renderedImage)) {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .bold()
+                                        .tint(.primary)
+                                        .frame(width: 40, height: 40)
+                                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+                                }
+                        }
+                    } else {
+                        Button {
+                            showInfo.toggle()
+                        } label: {
+                            Image(systemName: "info")
+                                .bold()
+                                .tint(.primary)
+                                .frame(width: 40, height: 40)
+                                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+                        }
                     }
-
                 }
                 .scenePadding()
 
@@ -84,10 +105,10 @@ struct ContentView: View {
                             HStack(alignment: .firstTextBaseline) {
                                 Text("#\(guess.color.hex)")
                                     .font(.custom("Kanit-Regular", size: 24, relativeTo: .title))
-                                    .getContrastText(backgroundColor: guess.color.color)
+                                    .foregroundStyle(getContrastColor(backgroundColor: guess.color.color))
                                 Text("\(100 * guess.distance, specifier: "%.0f%% match")")
                                     .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
-                                    .getContrastText(backgroundColor: guess.color.color)
+                                    .foregroundStyle(getContrastColor(backgroundColor: guess.color.color))
                                     .opacity(0.8)
                             }
                             .padding(.horizontal, 16)
@@ -130,7 +151,7 @@ struct ContentView: View {
                         let hex = HexColor(red: red, green: green, blue: blue)
                         Text(guessed ? "New Game" : "Guess #\(hex.hex)")
                             .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
-                            .getContrastText(backgroundColor: color.color)
+                            .foregroundStyle(getContrastColor(backgroundColor: color.color))
                     }
                     .tint(color.color)
                     .buttonStyle(.borderedProminent)
@@ -184,7 +205,7 @@ struct ContentView: View {
                                     } label: {
                                         Text("Reveal Solution")
                                             .bold()
-                                            .getContrastText(backgroundColor: Color("AccentColor"))
+                                            .foregroundStyle(getContrastColor(backgroundColor: Color("AccentColor")))
                                             .padding(.horizontal, 12)
                                             .padding(.vertical, 8)
                                             .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 8))
@@ -222,7 +243,7 @@ struct ContentView: View {
                             } label: {
                                 Text("Rate on App Store")
                                     .bold()
-                                    .getContrastText(backgroundColor: Color("AccentColor"))
+                                    .foregroundStyle(getContrastColor(backgroundColor: Color("AccentColor")))
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 8)
                                     .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 8))
@@ -244,15 +265,15 @@ struct ContentView: View {
                                     .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
                             }
                         }
-                        
+
                         Divider()
-                        
+
                         if let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String, let build_ = Bundle.main.infoDictionary!["CFBundleVersion"] as? String {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Version")
                                 .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
                                 .opacity(0.6)
-                
+
                                 Text("\(version) (\(build_))")
                                     .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
                             }
@@ -267,6 +288,43 @@ struct ContentView: View {
                 .scrollIndicators(.hidden)
             }
         }
+        .onOpenURL(perform: { url in
+            if url.scheme != "pigmento" {
+                return
+            }
+
+            // Currently only supports guess/HEX path.
+            let components = url.pathComponents
+
+            if components.count != 3 || components[1] != "guess" {
+                return
+            }
+
+            // TODO: Validate the hex component
+            let hexEncrypted = components[2]
+            let hex = hexEncrypted.fromBase64()!
+
+            if guesses.isEmpty {
+                color = HexColor(hex: hex)
+            } else {
+                incomingColor = HexColor(hex: hex)
+                showColorOverwriteAlert = true
+            }
+        })
+        .alert("New Color", isPresented: $showColorOverwriteAlert) {
+            Button("No") {
+                showColorOverwriteAlert = false
+            }
+
+            Button("Yes") {
+                reset()
+                color = incomingColor!
+                incomingColor = nil
+            }
+            .keyboardShortcut(.defaultAction)
+        } message: {
+            Text("You are about to lose your current progress. Do you want to continue?")
+        }
     }
 
     func reset() {
@@ -278,16 +336,85 @@ struct ContentView: View {
         green = 7
         blue = 7
     }
-}
 
-extension Text {
-    func getContrastText(backgroundColor: Color) -> some View {
+    private func createColorShare(for color: HexColor, challenge: Bool = false) -> some View {
+        ZStack(alignment: .bottomTrailing) {
+            VStack {
+                if challenge {
+                    Text("challenge")
+                        .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
+                        .foregroundStyle(getContrastColor(backgroundColor: color.color))
+                        .opacity(0.6)
+                }
+
+                Text("#\(color.hex)")
+                    .font(.custom("Kanit-Regular", size: 24, relativeTo: .title))
+                    .foregroundStyle(getContrastColor(backgroundColor: color.color))
+                    .if(challenge) { view in
+                        view.blur(radius: 8.0)
+                    }
+                    .padding(.bottom)
+            }
+            .frame(width: 160, height: 200)
+
+            if let image = UIImage(named: "AppIcon") {
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+        }
+        .padding()
+        .background(color.color)
+        // TODO: Fix non-transparent white background on exported image
+//        .clipShape(RoundedRectangle(cornerRadius: 14))
+    }
+
+    private func createRenderer(color: HexColor, challenge: Bool = false) -> ImageRenderer<some View> {
+        let cs = createColorShare(for: color, challenge: challenge)
+        let renderer = ImageRenderer(content: cs)
+        renderer.scale = displayScale
+
+        return renderer
+    }
+
+    private func getContrastColor(backgroundColor: Color) -> Color {
         var r, g, b, a: CGFloat
         (r, g, b, a) = (0, 0, 0, 0)
         UIColor(backgroundColor).getRed(&r, green: &g, blue: &b, alpha: &a)
         let luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
-        return luminance < 0.6 ? self.foregroundColor(.white) : self.foregroundColor(.black)
+        return luminance < 0.6 ? .white : .black
     }
+}
+
+extension View {
+    /// Applies the given transform if the given condition evaluates to `true`.
+    /// - Parameters:
+    ///   - condition: The condition to evaluate.
+    ///   - transform: The transform to apply to the source `View`.
+    /// - Returns: Either the original `View` or the modified `View` if the condition is `true`.
+    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
+    }
+}
+
+extension String {
+    func fromBase64() -> String? {
+        guard let data = Data(base64Encoded: self) else {
+            return nil
+        }
+
+        return String(data: data, encoding: .utf8)
+    }
+
+    func toBase64() -> String {
+        return Data(self.utf8).base64EncodedString()
+    }
+
 }
 
 #Preview {
