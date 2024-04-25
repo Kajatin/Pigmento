@@ -10,6 +10,7 @@ import SwiftUI
 struct StepSlider: View {
     var label: String
     var color: Color
+    var withHaptics: Bool = true
     @Binding var value: Double
 
     var body: some View {
@@ -17,7 +18,7 @@ struct StepSlider: View {
             Text(label)
                 .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
                 .opacity(0.8)
-            CustomSlider(value: $value, in_: 0...15, color: color)
+            CustomSlider(value: $value, in_: 0...15, color: color, withHaptics: withHaptics)
         }
     }
 }
@@ -27,6 +28,7 @@ struct CustomSlider: View {
     var in_: ClosedRange<Double>
     var step: Double = 1
     var color: Color = .gray
+    var withHaptics: Bool
 
     @EnvironmentObject var hapticsManager: HapticsManager
 
@@ -38,38 +40,41 @@ struct CustomSlider: View {
                     .fill(color.opacity(0.25))
                     .frame(width: geometry.size.width, height: 18)
 
-                // Tick marks
-                ForEach(1...Int(in_.upperBound) - Int(in_.lowerBound) - 1, id: \.self) { i in
-                    let x = CGFloat(i) * (geometry.size.width / CGFloat(in_.upperBound))
-                    Rectangle()
-                        .fill(color.opacity(0.8))
-                        .frame(width: 2, height: 10)
-                        .offset(x: x - 1)
-                }
-
                 // Tinted track
                 ZStack{
                     RoundedRectangle(cornerRadius: 4)
                         .fill(color.opacity(0.7))
-                        .frame(width: abs(geometry.size.width * CGFloat(value/(in_.upperBound - in_.lowerBound))), height: 18)
+                        .frame(width: CGFloat(value + 1) * (geometry.size.width / (CGFloat(in_.upperBound) + 2)), height: 18)
                         .offset(x: 0)
                 }
-
+                
+                // Tick marks
+                ForEach(0...Int(in_.upperBound) - Int(in_.lowerBound), id: \.self) { i in
+                    let x = CGFloat(i + 1) * (geometry.size.width / (CGFloat(in_.upperBound) + 2))
+                    Text(HexColor.options[i])
+                        .offset(x: x - 6)
+                        .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
+                        .foregroundStyle(color.getContrastColor())
+                        .opacity(0.25)
+                }
+                
                 // Thumb
-                Capsule()
+                Text("\(HexColor.options[Int(value)])")
                     .frame(width: 30, height: 26, alignment: .center)
-                    .offset(x: CGFloat(value) * (geometry.size.width / CGFloat(in_.upperBound)) - 15)
-                    .foregroundColor(.white)
-                    .shadow(radius: 10)
+                    .background(color, in: Capsule())
+                    .foregroundStyle(color.getContrastColor())
+                    .offset(x: CGFloat(value + 1) * (geometry.size.width / (CGFloat(in_.upperBound) + 2)) - 15)
+                    .shadow(radius: 8)
                     .gesture(
                         DragGesture(minimumDistance: geometry.size.width / CGFloat(in_.upperBound))
                             .onChanged({ value in
-                                let newValue = Double(value.location.x / geometry.size.width) * in_.upperBound
+                                let newValue = ((Double(value.location.x) + 15) / (geometry.size.width / (CGFloat(in_.upperBound) + 2)) - 1)
                                 let roundedValue = round(newValue / step) * step
-                                if self.value != roundedValue {
+                                let clippedValue = min(max(roundedValue, in_.lowerBound), in_.upperBound)
+                                if self.value != clippedValue && withHaptics {
                                     hapticsManager.playHaptics(intensity: 0.4, sharpness: 0.8)
                                 }
-                                self.value = min(max(roundedValue, in_.lowerBound), in_.upperBound)
+                                self.value = clippedValue
                             })
                     )
             }
@@ -80,7 +85,7 @@ struct CustomSlider: View {
 
 #Preview {
     let hapticsManager = HapticsManager.shared
-    return StepSlider(label: "red", color: .red, value: .constant(7))
+    return StepSlider(label: "red", color: .blue, value: .constant(7))
         .scenePadding()
         .environmentObject(hapticsManager)
 }
