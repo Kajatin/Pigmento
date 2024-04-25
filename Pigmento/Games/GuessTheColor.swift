@@ -61,32 +61,34 @@ struct GuessTheColor: View {
                     
                     Spacer()
                     
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 6) {
                         HStack(alignment: .firstTextBaseline) {
                             Text("Guess the Color")
                                 .font(.custom("Kanit-Regular", size: 24, relativeTo: .title))
                                 .foregroundStyle(showDropdown ? .primary : color.color.getContrastColor())
                             
-//                            Image(systemName: "chevron.down")
-//                                .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
-//                                .foregroundStyle(showDropdown ? .primary : color.color.getContrastColor())
-//                                .rotationEffect(.degrees((showDropdown ? -180 : 0)))
+                            Image(systemName: "chevron.down")
+                                .font(.custom("Kanit-Regular", size: 16, relativeTo: .body))
+                                .foregroundStyle(showDropdown ? .primary : color.color.getContrastColor())
+                                .rotationEffect(.degrees((showDropdown ? -180 : 0)))
                         }
-//                        .onTapGesture {
-//                            withAnimation(.snappy) {
-//                                showDropdown.toggle()
-//                            }
-//                        }
+                        .onTapGesture {
+                            withAnimation(.snappy) {
+                                showDropdown.toggle()
+                            }
+                        }
                         
                         if showDropdown {
-                            HStack {
-                                Image(systemName: "shield.checkered")
+                            HStack(alignment: .center) {
+                                Text("Battle Mode")
                                     .font(.custom("Kanit-Regular", size: 24, relativeTo: .title))
                                     .foregroundStyle(showDropdown ? .primary : color.color.getContrastColor())
                                 
-                                Text("Battle")
-                                    .font(.custom("Kanit-Regular", size: 24, relativeTo: .title))
-                                    .foregroundStyle(showDropdown ? .primary : color.color.getContrastColor())
+                                Text("new")
+                                    .font(.custom("Kanit-Regular", size: 14, relativeTo: .caption))
+                                    .padding(.horizontal, 6)
+                                    .foregroundStyle(color.color.getContrastColor())
+                                    .background(color.color, in: RoundedRectangle(cornerRadius: 8))
                             }
                             .onTapGesture {
                                 gameMode = .battle
@@ -98,7 +100,7 @@ struct GuessTheColor: View {
                         }
                     }
                     .padding(.horizontal)
-                    .frame(minHeight: 40)
+                    .padding(.vertical, 4)
                     .background(Material.regularMaterial.opacity(showDropdown ? 1 : 0), in: RoundedRectangle(cornerRadius: 14))
                     .clipped()
                     
@@ -182,7 +184,6 @@ struct GuessTheColor: View {
                             }
                         }
                     } label: {
-                        let hex = HexColor(red: red, green: green, blue: blue)
                         Text(guessed ? "New Game" : "Guess")
                             .font(.custom("Kanit-Regular", size: 20, relativeTo: .title2))
                             .foregroundStyle(color.color.getContrastColor())

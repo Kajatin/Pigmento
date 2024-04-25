@@ -11,12 +11,14 @@
 		4C23D0CE2BBA031E00E32174 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23D0CD2BBA031E00E32174 /* ContentView.swift */; };
 		4C23D0D02BBA032000E32174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C23D0CF2BBA032000E32174 /* Assets.xcassets */; };
 		4C23D0D32BBA032000E32174 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C23D0D22BBA032000E32174 /* Preview Assets.xcassets */; };
-		4C23D0DA2BBA043800E32174 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23D0D92BBA043800E32174 /* ViewModel.swift */; };
 		4C3FE1DB2BBDC24200464F0D /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FE1DA2BBDC24200464F0D /* HapticsManager.swift */; };
 		4C65DA112BC2A57E00A18864 /* Pigmento.ico in Resources */ = {isa = PBXBuildFile; fileRef = 4C65DA102BC2A57E00A18864 /* Pigmento.ico */; };
 		4C65DA152BC5DA0200A18864 /* GuessTheColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65DA142BC5DA0200A18864 /* GuessTheColor.swift */; };
 		4C65DA182BC5DAFE00A18864 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65DA172BC5DAFE00A18864 /* GameMode.swift */; };
+		4C65DA1A2BC5DD5200A18864 /* Battle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65DA192BC5DD5200A18864 /* Battle.swift */; };
 		4C65DA202BC659CE00A18864 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65DA1F2BC659CE00A18864 /* Extensions.swift */; };
+		4C65DA222BC724C800A18864 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65DA212BC724C800A18864 /* Player.swift */; };
+		4C65DA242BC724E600A18864 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65DA232BC724E600A18864 /* GameManager.swift */; };
 		4C85C8B62BBAA1B200CFF883 /* Kanit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C85C8B52BBAA1B200CFF883 /* Kanit-Regular.ttf */; };
 		4C85C8BB2BBAD82300CFF883 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85C8BA2BBAD82300CFF883 /* HexColor.swift */; };
 		4C85C8BD2BBAD8E200CFF883 /* Guess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85C8BC2BBAD8E200CFF883 /* Guess.swift */; };
@@ -30,12 +32,14 @@
 		4C23D0CD2BBA031E00E32174 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4C23D0CF2BBA032000E32174 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C23D0D22BBA032000E32174 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		4C23D0D92BBA043800E32174 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		4C3FE1DA2BBDC24200464F0D /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		4C65DA102BC2A57E00A18864 /* Pigmento.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = Pigmento.ico; sourceTree = "<group>"; };
 		4C65DA142BC5DA0200A18864 /* GuessTheColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessTheColor.swift; sourceTree = "<group>"; };
 		4C65DA172BC5DAFE00A18864 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		4C65DA192BC5DD5200A18864 /* Battle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battle.swift; sourceTree = "<group>"; };
 		4C65DA1F2BC659CE00A18864 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4C65DA212BC724C800A18864 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		4C65DA232BC724E600A18864 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		4C85C8B52BBAA1B200CFF883 /* Kanit-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-Regular.ttf"; sourceTree = "<group>"; };
 		4C85C8B72BBAA1D200CFF883 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4C85C8BA2BBAD82300CFF883 /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
@@ -83,11 +87,10 @@
 				4C3FE1DA2BBDC24200464F0D /* HapticsManager.swift */,
 				4C85C8BC2BBAD8E200CFF883 /* Guess.swift */,
 				4C85C8BA2BBAD82300CFF883 /* HexColor.swift */,
-				4C23D0D92BBA043800E32174 /* ViewModel.swift */,
+				4C65DA1F2BC659CE00A18864 /* Extensions.swift */,
 				4C23D0CF2BBA032000E32174 /* Assets.xcassets */,
 				4C65DA102BC2A57E00A18864 /* Pigmento.ico */,
 				4C23D0D12BBA032000E32174 /* Preview Content */,
-				4C65DA1F2BC659CE00A18864 /* Extensions.swift */,
 			);
 			path = Pigmento;
 			sourceTree = "<group>";
@@ -105,6 +108,9 @@
 			children = (
 				4C65DA142BC5DA0200A18864 /* GuessTheColor.swift */,
 				4C65DA172BC5DAFE00A18864 /* GameMode.swift */,
+				4C65DA192BC5DD5200A18864 /* Battle.swift */,
+				4C65DA232BC724E600A18864 /* GameManager.swift */,
+				4C65DA212BC724C800A18864 /* Player.swift */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -190,11 +196,13 @@
 				4C65DA182BC5DAFE00A18864 /* GameMode.swift in Sources */,
 				4C3FE1DB2BBDC24200464F0D /* HapticsManager.swift in Sources */,
 				4C85C8BF2BBAE08300CFF883 /* StepSlider.swift in Sources */,
+				4C65DA242BC724E600A18864 /* GameManager.swift in Sources */,
 				4C23D0CE2BBA031E00E32174 /* ContentView.swift in Sources */,
 				4C85C8BB2BBAD82300CFF883 /* HexColor.swift in Sources */,
-				4C23D0DA2BBA043800E32174 /* ViewModel.swift in Sources */,
+				4C65DA222BC724C800A18864 /* Player.swift in Sources */,
 				4C23D0CC2BBA031E00E32174 /* PigmentoApp.swift in Sources */,
 				4C65DA202BC659CE00A18864 /* Extensions.swift in Sources */,
+				4C65DA1A2BC5DD5200A18864 /* Battle.swift in Sources */,
 				4C85C8BD2BBAD8E200CFF883 /* Guess.swift in Sources */,
 				4C65DA152BC5DA0200A18864 /* GuessTheColor.swift in Sources */,
 			);
@@ -347,7 +355,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.kajatin.roland.Pigmento;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -386,7 +394,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.kajatin.roland.Pigmento;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
