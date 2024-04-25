@@ -36,6 +36,7 @@ struct GuessTheColor: View {
     
     @Binding var gameMode: GameMode
     @State private var showDropdown = false
+    @State private var showSmallScreenAlert = false
     
     @Environment(\.displayScale) var displayScale
     @Environment(\.requestReview) var requestReview
@@ -91,9 +92,13 @@ struct GuessTheColor: View {
                                     .background(color.color, in: RoundedRectangle(cornerRadius: 8))
                             }
                             .onTapGesture {
-                                gameMode = .battle
-                                withAnimation {
-                                    showDropdown.toggle()
+                                if UIScreen.main.bounds.height < 700 {
+                                    showSmallScreenAlert.toggle()
+                                } else {
+                                    gameMode = .battle
+                                    withAnimation {
+                                        showDropdown.toggle()
+                                    }
                                 }
                             }
                             .transition(.opacity)
@@ -359,6 +364,16 @@ struct GuessTheColor: View {
             .keyboardShortcut(.defaultAction)
         } message: {
             Text("You are about to lose your current progress. Do you want to continue?")
+        }
+        .alert("Unsupported", isPresented: $showSmallScreenAlert) {
+            Button("OK") {
+                withAnimation {
+                    showDropdown.toggle()
+                }
+            }
+            .keyboardShortcut(.defaultAction)
+        } message: {
+            Text("This mode is unavailable on small screen sizes.")
         }
     }
     
