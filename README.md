@@ -1,4 +1,4 @@
-<h1 align="center">Pigmento <img width="32" src="https://github.com/Kajatin/Pigmento/assets/33018844/f2f64766-fa55-42eb-85c3-e743680a74b5"></h1>
+<h1 align="center">Pigmento <img width="32" src="https://github.com/Kajatin/Pigmento/assets/33018844/092f02f0-af53-4674-bb06-0f6e725fd767"></h1>
 
 A simple but fun puzzle game for people who love colors.
 
@@ -14,11 +14,8 @@ Currently supported interfaces:
 * Mac (Designed for iPad)
 
 <p align="center">
-  <img width="240" src="https://github.com/Kajatin/Pigmento/assets/33018844/903b98fe-a273-4722-9e4a-df5d4ef77805">
-  <img width="240" src="https://github.com/Kajatin/Pigmento/assets/33018844/9ab5a1dc-1e7f-40cc-a994-b53703fbc833">
-  <img width="240" src="https://github.com/Kajatin/Pigmento/assets/33018844/90916f7e-4988-4656-8fa7-83d01c758990">
-</p>
-
-<p align="center">
-  <img width="480" src="https://github.com/Kajatin/Pigmento/assets/33018844/0c59c51c-d2e5-48eb-bc22-51068a294d52">
+  <img width="200" src="https://github.com/Kajatin/Pigmento/assets/33018844/54a991ef-9bed-4315-8bcc-c32b67ba657e">
+  <img width="200" src="https://github.com/Kajatin/Pigmento/assets/33018844/ab7ec0b8-cfd5-4c2a-a0b0-8629410dc0e7">
+  <img width="200" src="https://github.com/Kajatin/Pigmento/assets/33018844/1bd78afa-f511-42f0-856b-ba998a175d40">
+  <img width="200" src="https://github.com/Kajatin/Pigmento/assets/33018844/2a292867-79dc-47b4-8c81-ec90e2f905e4">
 </p>
